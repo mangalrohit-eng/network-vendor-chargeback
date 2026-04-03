@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Link from "next/link";
 import { useAppStore } from "@/stores/app-store";
 import type { Chargeback, ChargebackStage } from "@/types";
 import { formatUsd } from "@/lib/format";
@@ -50,12 +51,33 @@ export function PipelineView() {
 
   return (
     <div className="space-y-6">
-      <div>
+      <div className="max-w-2xl space-y-2">
         <h1 className="text-2xl font-semibold tracking-tight">Chargeback pipeline</h1>
         <p className="text-sm text-muted-foreground">
-          Kanban by stage. Open a card for evidence, audit trail, and invoice preview.
+          Each column is a workflow stage. Click a card to see evidence, move stages, and preview
+          the invoice PDF. New items arrive here when you choose{" "}
+          <span className="font-medium text-foreground">New chargeback</span> on a ticket that has
+          contract matches.
         </p>
       </div>
+
+      {chargebacks.length === 0 && (
+        <div className="border border-dashed border-border bg-muted/10 px-4 py-6 text-sm text-muted-foreground">
+          <p className="font-medium text-foreground">No chargebacks yet</p>
+          <p className="mt-2">
+            Go to{" "}
+            <Link href="/tickets" className="underline underline-offset-2 text-foreground">
+              Tickets
+            </Link>
+            , run <span className="text-foreground">Analyze</span> on an incident, then create a
+            draft with <span className="text-foreground">New chargeback</span>. Ensure{" "}
+            <Link href="/contracts" className="underline underline-offset-2 text-foreground">
+              Contracts
+            </Link>{" "}
+            are loaded so matching can run.
+          </p>
+        </div>
+      )}
 
       <div className="flex gap-3 overflow-x-auto pb-2">
         {STAGES.map((stage) => (

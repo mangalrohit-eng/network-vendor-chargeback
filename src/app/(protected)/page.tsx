@@ -122,6 +122,9 @@ export default function WelcomePage() {
             </Link>
           </Button>
           <Button asChild variant="outline" className="rounded-sm">
+            <Link href="/contracts">Add contracts</Link>
+          </Button>
+          <Button asChild variant="outline" className="rounded-sm">
             <Link href="/tickets">Go to tickets</Link>
           </Button>
         </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import {
   Bar,
   BarChart,
@@ -37,6 +38,7 @@ const COLORS = [
 
 export function DashboardContent() {
   const tickets = useAppStore((s) => s.tickets);
+  const contracts = useAppStore((s) => s.contracts);
   const chargebacks = useAppStore((s) => s.chargebacks);
 
   const analyzed = tickets.filter((t) => t.rca).length;
@@ -82,14 +84,79 @@ export function DashboardContent() {
       fill: COLORS[i % COLORS.length],
     }));
 
+  const nextSteps: { text: string; href: string }[] = [];
+  if (contracts.length === 0) {
+    nextSteps.push({
+      text: "Add at least one vendor contract (upload a PDF or enter clauses manually).",
+      href: "/contracts",
+    });
+  }
+  const ticketsNeedingRca = tickets.filter((t) => !t.rca);
+  if (ticketsNeedingRca.length > 0) {
+    nextSteps.push({
+      text: `Run AI analysis on ${ticketsNeedingRca.length} ticket${ticketsNeedingRca.length === 1 ? "" : "s"} that ${ticketsNeedingRca.length === 1 ? "has" : "have"} no RCA yet.`,
+      href: "/tickets",
+    });
+  }
+  const withMatches = tickets.filter(
+    (t) => t.contractMatches && t.contractMatches.length > 0
+  );
+  const drafts = chargebacks.filter((c) => c.stage === "draft");
+  if (withMatches.length > 0 && drafts.length > 0) {
+    nextSteps.push({
+      text: `${drafts.length} chargeback draft(s) in the pipeline — open the pipeline to advance stages or add more from ticket rows.`,
+      href: "/pipeline",
+    });
+  } else if (withMatches.length > 0) {
+    nextSteps.push({
+      text: "Tickets with contract matches can create draft chargebacks from the Tickets table.",
+      href: "/tickets",
+    });
+  }
+  if (nextSteps.length === 0 && tickets.length > 0) {
+    nextSteps.push({
+      text: "Review pipeline totals and vendor attribution below, or open Tickets to add new incidents.",
+      href: "/tickets",
+    });
+  }
+  if (nextSteps.length === 0 && tickets.length === 0) {
+    nextSteps.push({
+      text: "Start by adding contracts, then intake a ticket on the Tickets page.",
+      href: "/contracts",
+    });
+  }
+
   return (
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-semibold tracking-tight">Dashboard</h1>
         <p className="text-sm text-muted-foreground">
-          Network failure intake, RCA coverage, and chargeback pipeline.
+          Network failure intake, RCA coverage, and chargeback pipeline. Use the checklist below if
+          you are unsure what to do next.
         </p>
       </div>
+
+      {nextSteps.length > 0 && (
+        <Card className="border-primary/20 bg-primary/5 shadow-none">
+          <CardHeader className="pb-2 pt-4">
+            <CardTitle className="text-sm font-semibold text-foreground">Suggested next steps</CardTitle>
+          </CardHeader>
+          <CardContent className="pb-4 pt-0">
+            <ul className="list-disc space-y-2 pl-4 text-sm text-muted-foreground">
+              {nextSteps.map((s, i) => (
+                <li key={i}>
+                  <Link
+                    href={s.href}
+                    className="font-medium text-foreground underline underline-offset-2 hover:text-primary"
+                  >
+                    {s.text}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
+      )}
 
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <Kpi

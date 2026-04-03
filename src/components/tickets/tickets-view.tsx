@@ -1,8 +1,16 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Link from "next/link";
 import Papa from "papaparse";
-import { Plus, Upload, ClipboardPaste, Sparkles, Trash2 } from "lucide-react";
+import {
+  Plus,
+  Upload,
+  ClipboardPaste,
+  Sparkles,
+  Trash2,
+  Download,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -56,10 +64,45 @@ export function TicketsView() {
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-end justify-between gap-3">
-        <div>
+        <div className="max-w-2xl space-y-2">
           <h1 className="text-2xl font-semibold tracking-tight">Tickets</h1>
           <p className="text-sm text-muted-foreground">
-            Intake failures, run AI RCA, and surface contract matches.
+            Intake network failures, run AI root-cause analysis, then create chargeback drafts when
+            the app finds matching contract clauses.
+          </p>
+          <ol className="list-decimal space-y-0.5 pl-4 text-xs text-muted-foreground">
+            <li>
+              Add a row (manual, paste incident text, or{" "}
+              <span className="text-foreground">CSV upload</span>).
+            </li>
+            <li>
+              Click <span className="font-medium text-foreground">Analyze</span> — RCA runs first,
+              then contract matching uses your{" "}
+              <Link href="/contracts" className="underline underline-offset-2 text-foreground">
+                Contracts
+              </Link>{" "}
+              library.
+            </li>
+            <li>
+              When matches appear, use{" "}
+              <span className="font-medium text-foreground">New chargeback</span> to push a draft
+              into the pipeline.
+            </li>
+          </ol>
+          <p className="text-[11px] leading-snug text-muted-foreground">
+            CSV columns (header row):{" "}
+            <code className="rounded-sm bg-muted px-1 font-mono text-[10px]">
+              title, description, severity, region, downtimeMinutes, vendorHint
+            </code>
+            . Sample file: 50 rows covering Nokia, Ciena, Cisco, and Ericsson (
+            <a
+              href="/samples/sample-tickets.csv"
+              download="sample-tickets.csv"
+              className="font-medium text-foreground underline underline-offset-2"
+            >
+              download sample-tickets.csv
+            </a>
+            ).
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -108,6 +151,12 @@ export function TicketsView() {
               </span>
             </Button>
           </label>
+          <Button variant="outline" size="sm" asChild>
+            <a href="/samples/sample-tickets.csv" download="sample-tickets.csv">
+              <Download className="h-4 w-4" />
+              Sample CSV
+            </a>
+          </Button>
         </div>
       </div>
 
@@ -178,12 +227,13 @@ export function TicketsView() {
                             size="sm"
                             variant="outline"
                             className="h-8"
+                            title={`Create draft chargeback with ${c.vendorName}`}
                             onClick={() => {
                               const draft = buildChargebackFromTicket(t, c, m);
                               addChargeback(draft);
                             }}
                           >
-                            + CB
+                            New chargeback
                           </Button>
                         );
                       })}

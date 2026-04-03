@@ -4,3 +4,48 @@ title,description,severity,region,downtimeMinutes,vendorHint
 "Microwave hop LOS — ORD backhaul","Ericsson MINI-LINK 6352 near-line-of-sight fade during heavy rain; 2+0 protected path failed to switch clean; aggregation ring constrained.",P3,Mid-Atlantic,38,Ericsson
 "vRAN vDU CPU peg — West overlay","Kubernetes worker node CPU sustained >95% on vDU workload; suspect Ericsson SW release interaction with host NIC driver; manual scale-out restored.",P2,West,67,Ericsson
 "Ericsson OSS alarm storm","Passive NE synchronization job caused duplicate alarms and suppressed critical power alarms for 22 minutes; NOC manual correlation.",P4,Southeast,22,Ericsson
+"Metro ring flap — ORD edge","Multiple LOS alarms on 100G coherent line card; traffic shifted to protection within SLA; Wavelogic DSP instability suspected.",P2,Central,42,Ciena
+"Control-plane churn — ATL core","Waveserver control processor reset during config commit; transient GMPLS adjacency loss on regional mesh.",P3,Southeast,28,Ciena
+"Coherent pre-FEC spike — BOS–NYC","WL5e span OSNR margin collapse; vendor TAC engaged; pre-emptive regen bypass restored service.",P2,Northeast,51,Ciena
+"NOC bridge delay — P1 optical","Committed 30m bridge not met for P1; escalation to vendor duty manager; documentation for LD review.",P1,Mid-Atlantic,88,Ciena
+"RMA NBD miss — line pack","Failed coherent pack RMA shipment missed NBD commitment; extended outage window on redundant path maintenance.",P3,Central,19,Ciena
+"OTDR anomaly — submarine landing","Ciena shore-end span showing reflective event; marine coordination delayed restoration window.",P4,Northeast,14,Ciena
+"Software upgrade rollback","Planned upgrade rolled back after control API incompatibility; maintenance window extended.",P2,West,73,Ciena
+"Power feed hit — CO battery","Rectifier fault correlated to vendor PDU firmware; Ciena shelf brownout recovery sequence.",P3,Southeast,35,Ciena
+"100G client optic fail","ZR optic intermittent on router-facing port; replaced under vendor FRU program.",P4,Central,8,Ciena
+"Span LCP oscillation","Link control protocol flap on interoffice dark fiber; clocking issue traced to transponder settings.",P2,West,44,Ciena
+"Core router BGP churn","ASR9k RP failover during routine config push; transient packet loss east coast aggregation.",P3,Northeast,18,Cisco
+"Nexus VPC inconsistency","Data center TOR pair lost VPC keepalive; east-west easting degraded until manual reconcile.",P2,Central,31,Cisco
+"ISR crypto engine stall","Branch SD-WAN hub crypto path wedged; TAC RMA recommended after warm reload.",P4,Southeast,12,Cisco
+"ASR thermal throttle","Line card thermal sensor fault caused automatic power reduction; replaced FRU.",P3,West,26,Cisco
+"ACI APIC cluster split-brain","APIC cluster partition during storage maintenance; policy push delayed 40 minutes.",P1,Northeast,40,Cisco
+"Firepower rule push failure","FTD policy deployment stuck; manual failover to secondary pair required.",P2,Mid-Atlantic,55,Cisco
+"Cat9k stack mismatch","Stack member version skew after partial upgrade; ring broke until re-sync.",P3,Central,22,Cisco
+"Webex edge SIP timeout","SBC session timer mismatch with carrier; Cisco TAC provided interim timer profile.",P4,Northeast,9,Cisco
+"Meraki dashboard outage impact","Cloud control plane brownout; local switching continued; change windows blocked.",P3,West,120,Cisco
+"DWDM span degradation LAX–PHX","OSNR margin collapse on long-haul span; pre-FEC errors above threshold; pump laser RMA.",P2,West,67,Nokia
+"1830 PSS shelf controller reset","SNC reset during audit job; transient protection switch; no customer impact beyond alarms.",P4,Central,6,Nokia
+"OTDR break — rural backbone","Fiber cut near ROW construction; Nokia ILA hut power dip extended splicing window.",P2,Southeast,142,Nokia
+"GMPLS LSP stuck — metro","LSP not releasing after maintenance; Nokia NMS manual clear required.",P3,Northeast,33,Nokia
+"Amplifier gain tilt — coastal","Pump laser aging signature; proactive replacement scheduled; temporary regen insert.",P2,Mid-Atlantic,58,Nokia
+"OTN mapping error — client port","ODUflex mismatch after card swap; Nokia procedural gap in provisioning script.",P4,West,11,Nokia
+"Fan tray failure — core POP","Shelf overheating risk; redundant fans insufficient; emergency swap.",P1,Central,25,Nokia
+"Sync holdover exceedance","PRTC holdover window exceeded during GNSS maintenance; Nokia clock trace for audit.",P3,Northeast,47,Nokia
+"Network slice SLA breach — URLLC","Factory 5G slice latency SLO miss during Nokia UPF CPU spike; reroute mitigated.",P2,Southeast,61,Nokia
+"Passive filter drift","Mux filter passband drift caused channel penalties; vendor field calibration.",P3,West,29,Nokia
+"Ericsson vCU-CP memory leak","Control plane pod restart loop after 14 days uptime; vendor patch candidate.",P2,Northeast,76,Ericsson
+"Ericsson RAN energy save glitch","Cell sleep state stuck; overnight performance dip; parameter rollback.",P4,Central,15,Ericsson
+"Ericsson transport sync holdover","SyncE reference lost; extended holdover on aggregation router; clock audit opened.",P3,Mid-Atlantic,41,Ericsson
+"Ericsson DPI blade reset","User plane DPI blade warm reset during peak; partial throughput cap for 18 minutes.",P2,West,18,Ericsson
+"Ciena API rate limit storm","NorthStar integration job tripped API throttle; provisioning backlog 35 minutes.",P4,Northeast,35,Ciena
+"Cisco Smart Licensing outage","License reservation unreachable; temporary grace mode; entitlement reconciliation.",P3,Southeast,27,Cisco
+"Nokia NFM-T backup failure","Backup job hung on large NE inventory; disk full on appliance; cleaned and retried.",P4,Central,5,Nokia
+"Ericsson charging interface timeout","CHF interface timeouts during peak; CDR delay; vendor scaling advisory applied.",P2,Northeast,52,Ericsson
+"Cisco IOS-XR ISIS flap","ISIS LSP storm on regional P; microburst blamed on line card TCAM pressure.",P1,West,98,Cisco
+"Ciena fiber characterization miss","Pre-turnup characterization report late; delayed customer handoff window.",P4,Southeast,7,Ciena
+"Nokia security patch slip","Critical CVE patch window missed; compensating controls applied; new date committed.",P3,Mid-Atlantic,0,Nokia
+"Ericsson SON self-optimization loop","SON script oscillated tilt/ret; manual lockout; vendor tuning package.",P2,Central,63,Ericsson
+"Cisco QoS policy drift","Auto-QoS template drift after IOS upgrade; voice EF marking incorrect.",P3,Northeast,21,Cisco
+"Ciena span margin audit fail","Quarterly margin audit flagged multiple spans; vendor remediation plan due.",P4,West,0,Ciena
+"Nokia hardware batch recall notice","Vendor notice on optical module batch; swap campaign scheduled; one early failure.",P2,Southeast,34,Nokia
+"Cisco TAC case SLA miss","Sev2 callback SLA missed by 2h; documented for vendor review.",P4,Central,0,Cisco

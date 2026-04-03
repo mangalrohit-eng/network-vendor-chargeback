@@ -171,6 +171,12 @@ export function RcaAnalyzeDialog({
           </DialogTitle>
         </DialogHeader>
         <div className="space-y-3">
+          {contracts.length === 0 && (
+            <p className="border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-muted-foreground">
+              You have no contracts in the library. RCA will still run, but contract matching cannot
+              find chargeback clauses until you add agreements on the Contracts page.
+            </p>
+          )}
           <div className="flex gap-2">
             <Button
               type="button"
@@ -198,7 +204,8 @@ export function RcaAnalyzeDialog({
           )}
           <ScrollArea className="h-[340px] w-full rounded-sm border border-border">
             <pre className="whitespace-pre-wrap break-words p-3 font-mono text-xs leading-relaxed">
-              {streamText || "Stream output appears here. Click Run analysis."}
+              {streamText ||
+                "Output from the model appears here. Click Run analysis to stream RCA JSON, then contract matches."}
             </pre>
           </ScrollArea>
           {phase === "done" && (
