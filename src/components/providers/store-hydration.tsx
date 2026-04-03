@@ -1,24 +1,31 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAppStore } from "@/stores/app-store";
 
+/**
+ * Seeds demo data after localStorage rehydration. Does not block the UI — the old
+ * "Loading workspace" gate caused a stuck screen when hydration/effect ordering failed.
+ */
 export function StoreHydration({ children }: { children: React.ReactNode }) {
-  const [ready, setReady] = useState(false);
-  const ensureSeed = useAppStore((s) => s.ensureSeed);
-
   useEffect(() => {
-    ensureSeed();
-    setReady(true);
-  }, [ensureSeed]);
+    const runSeed = () => {
+      useAppStore.getState().ensureSeed();
+    };
 
-  if (!ready) {
-    return (
-      <div className="flex min-h-screen items-center justify-center border border-border bg-background text-sm text-muted-foreground">
-        Loading workspace…
-      </div>
-    );
-  }
+    const api = useAppStore.persist;
+    if (!api) {
+      runSeed();
+      return;
+    }
+    if (api.hasHydrated()) {
+      runSeed();
+      return;
+    }
+    return api.onFinishHydration(() => {
+      runSeed();
+    });
+  }, []);
 
   return <>{children}</>;
 }
