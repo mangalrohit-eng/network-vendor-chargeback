@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import { AppShell } from "@/components/layout/app-shell";
-import { StoreHydration } from "@/components/providers/store-hydration";
+import { RootProviders } from "@/components/layout/root-providers";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -28,9 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} ${mono.variable} font-sans`}>
-        <StoreHydration>
-          <AppShell>{children}</AppShell>
-        </StoreHydration>
+        <RootProviders>{children}</RootProviders>
       </body>
     </html>
   );

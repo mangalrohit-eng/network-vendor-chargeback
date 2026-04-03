@@ -1,13 +1,14 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, type ReactNode } from "react";
 import { useAppStore } from "@/stores/app-store";
+import { AppShell } from "@/components/layout/app-shell";
 
 /**
- * Seeds demo data after localStorage rehydration. Does not block the UI — the old
- * "Loading workspace" gate caused a stuck screen when hydration/effect ordering failed.
+ * Single client boundary for the app shell + Zustand seed after persist rehydration.
+ * Avoids nested client wrappers that can fragment `app/layout` chunks and confuse dev HMR.
  */
-export function StoreHydration({ children }: { children: React.ReactNode }) {
+export function RootProviders({ children }: { children: ReactNode }) {
   useEffect(() => {
     const runSeed = () => {
       useAppStore.getState().ensureSeed();
@@ -27,5 +28,5 @@ export function StoreHydration({ children }: { children: React.ReactNode }) {
     });
   }, []);
 
-  return <>{children}</>;
+  return <AppShell>{children}</AppShell>;
 }

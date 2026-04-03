@@ -110,15 +110,21 @@ export function DashboardContent() {
         <Kpi title="Recovered (paid)" value={formatUsd(recoveredUsd)} sub="Recorded in app" />
       </div>
 
-      <div className="grid gap-3 lg:grid-cols-2">
-        <Card className="border-border shadow-none">
+      <div className="grid min-w-0 gap-3 lg:grid-cols-2">
+        <Card className="min-w-0 border-border shadow-none">
           <CardHeader className="pb-2">
             <CardTitle className="text-base font-semibold">
               Failures by vendor (primary attribution)
             </CardTitle>
           </CardHeader>
-          <CardContent className="h-[300px] pt-0">
-            <ResponsiveContainer width="100%" height="100%">
+          <CardContent className="h-[300px] min-h-[300px] min-w-0 pt-0">
+            <ResponsiveContainer
+              width="100%"
+              height="100%"
+              minHeight={280}
+              minWidth={200}
+              initialDimension={{ width: 520, height: 280 }}
+            >
               <BarChart data={vendorData} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
                 <XAxis dataKey="name" tick={{ fontSize: 11 }} />
@@ -136,14 +142,20 @@ export function DashboardContent() {
           </CardContent>
         </Card>
 
-        <Card className="border-border shadow-none">
+        <Card className="min-w-0 border-border shadow-none">
           <CardHeader className="pb-2">
             <CardTitle className="text-base font-semibold">
               Chargeback pipeline status
             </CardTitle>
           </CardHeader>
-          <CardContent className="h-[300px] pt-0">
-            <ResponsiveContainer width="100%" height="100%">
+          <CardContent className="h-[300px] min-h-[300px] min-w-0 pt-0">
+            <ResponsiveContainer
+              width="100%"
+              height="100%"
+              minHeight={280}
+              minWidth={200}
+              initialDimension={{ width: 520, height: 280 }}
+            >
               <PieChart>
                 <Pie
                   data={pieData.length ? pieData : [{ name: "none", value: 1, fill: "hsl(var(--muted))" }]}
