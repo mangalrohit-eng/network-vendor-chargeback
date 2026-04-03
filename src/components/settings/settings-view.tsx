@@ -8,6 +8,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { useAppStore } from "@/stores/app-store";
 import { formatDate } from "@/lib/format";
+import { SignOutButton } from "@/components/auth/sign-out-button";
 
 export function SettingsView() {
   const auditLog = useAppStore((s) => s.auditLog);
@@ -150,6 +151,16 @@ export function SettingsView() {
           </CardContent>
         </Card>
       </div>
+
+      <Card className="border-border shadow-none">
+        <CardHeader className="pb-2">
+          <CardTitle className="text-base font-semibold">Session</CardTitle>
+        </CardHeader>
+        <CardContent className="text-sm text-muted-foreground">
+          <p className="mb-3">End your session on this device.</p>
+          <SignOutButton variant="secondary" />
+        </CardContent>
+      </Card>
 
       <Card className="border-border shadow-none">
         <CardHeader className="pb-2">

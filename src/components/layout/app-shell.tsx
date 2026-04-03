@@ -11,6 +11,7 @@ import {
   Home,
 } from "lucide-react";
 import { BrandLogos } from "@/components/brand/brand-logos";
+import { SignOutButton } from "@/components/auth/sign-out-button";
 import { cn } from "@/lib/utils";
 
 const nav = [
@@ -70,10 +71,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </div>
       </aside>
       <div className="flex min-w-0 flex-1 flex-col">
-        <header className="flex h-12 items-center border-b border-border bg-card px-6">
+        <header className="flex h-12 items-center justify-between gap-3 border-b border-border bg-card px-6">
           <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
             Internal use
           </span>
+          <SignOutButton variant="ghost" size="sm" className="h-8 shrink-0 text-muted-foreground" />
         </header>
         <main className="flex-1 overflow-auto p-6">{children}</main>
       </div>

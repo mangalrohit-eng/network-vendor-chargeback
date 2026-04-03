@@ -2,13 +2,9 @@
 
 import { useEffect, type ReactNode } from "react";
 import { useAppStore } from "@/stores/app-store";
-import { AppShell } from "@/components/layout/app-shell";
 
-/**
- * Single client boundary for the app shell + Zustand seed after persist rehydration.
- * Avoids nested client wrappers that can fragment `app/layout` chunks and confuse dev HMR.
- */
-export function RootProviders({ children }: { children: ReactNode }) {
+/** Zustand persist seed only — no chrome (login stays unbranded). */
+export function ClientRoot({ children }: { children: ReactNode }) {
   useEffect(() => {
     const runSeed = () => {
       useAppStore.getState().ensureSeed();
@@ -28,5 +24,5 @@ export function RootProviders({ children }: { children: ReactNode }) {
     });
   }, []);
 
-  return <AppShell>{children}</AppShell>;
+  return <>{children}</>;
 }
