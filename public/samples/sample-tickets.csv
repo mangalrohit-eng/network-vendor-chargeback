@@ -1,0 +1,6 @@
+title,description,severity,region,downtimeMinutes,vendorHint
+"RAN CPRI link flap — DFW cluster","Multiple overnight resets on Ericsson Baseband 6630; CPRI degradation on sectors 2–4; traffic held on secondary carrier.",P2,Central,94,Ericsson
+"5G SA core attach failures","AMF registration timeouts spike during software activation window; Ericsson dual-SMF deployment; impact ~12k failed attaches.",P1,Northeast,155,Ericsson
+"Microwave hop LOS — ORD backhaul","Ericsson MINI-LINK 6352 near-line-of-sight fade during heavy rain; 2+0 protected path failed to switch clean; aggregation ring constrained.",P3,Mid-Atlantic,38,Ericsson
+"vRAN vDU CPU peg — West overlay","Kubernetes worker node CPU sustained >95% on vDU workload; suspect Ericsson SW release interaction with host NIC driver; manual scale-out restored.",P2,West,67,Ericsson
+"Ericsson OSS alarm storm","Passive NE synchronization job caused duplicate alarms and suppressed critical power alarms for 22 minutes; NOC manual correlation.",P4,Southeast,22,Ericsson
